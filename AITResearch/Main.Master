@@ -1,0 +1,34 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="AITResearch.Main" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <!-- Header -->
+    <div>
+        <asp:Label ID="LabWelcome" runat="server" Text="AIT Research"></asp:Label>
+    </div>
+
+    <!-- Body -->
+
+    <form id="form1" runat="server">
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+     <!-- Footer -->
+        <div id="footer">
+             <br />
+             <br />
+        Copy right Jun @2020.
+        </div>
+       
+    </form>
+</body>
+</html>
