@@ -12,11 +12,11 @@ namespace AITResearch
     public partial class Questions : System.Web.UI.Page
     {
         // declair data holder
-        private int QuestNum = 1;     
-        private string questionText;        
-        private DropDownList dropDownList = new DropDownList();        
+        private int QuestNum = 0;
+        private string questionText;
+        private DropDownList dropDownList = new DropDownList();
         private TextBox txtBoxEmail = new TextBox();
-        TextBox txtBoxPostCode = new TextBox();
+        private TextBox txtBoxPostCode = new TextBox();
 
         // create next_quest_id holder
 
@@ -24,7 +24,8 @@ namespace AITResearch
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            QuestNum = Convert.ToInt32(Session["Q_Num"]);
+
 
             // Load from database
             SqlConnection myConn;
@@ -49,33 +50,39 @@ namespace AITResearch
             DataRow myRow;
             while (myReader.Read())
             {
-                
+
                 myRow = questionDB.NewRow();
                 myRow["Q_ID"] = myReader["Q_ID"].ToString();
                 myRow["Q_Text"] = myReader["Q_Text"].ToString();
                 myRow["Q_Type"] = myReader["Q_Type"].ToString();
                 myRow["Next_Q_ID"] = myReader["Next_Q_ID"].ToString();
 
-                if (int.Parse((string)myRow["Q_ID"]) == AppSession.getQuestionNumber())
+                // if (int.Parse((string)myRow["Q_ID"]) == AppSession.getQuestionNumber())
+
+                if (int.Parse((string)myRow["Q_ID"]) == Convert.ToInt32(Session["Q_Num"]))
                 {
                     questionText = myRow["Q_Text"].ToString();
-                    QuestNum = int.Parse((string)myRow["Q_ID"]);
                     questionDB.Rows.Add(myRow);
 
-                   
+
                 }
 
-               /* if (QuestNum == 4)
+                if (QuestNum == 4)
                 {
-                    TextBox txtBoxPostCode = new TextBox();
                     PlaceHolder1.Controls.Add(txtBoxPostCode);
                     txtBoxPostCode.Text = String.Empty;
-                }*/
+                }
+                else if (QuestNum == 5)
+                {
+                    PlaceHolder1.Controls.Add(txtBoxEmail);
+                    txtBoxEmail.Text = String.Empty;
+                }
 
                 dbTableView.DataSource = questionDB;
                 dbTableView.DataBind();
 
             }
+            LabQuestion.Text = Session["Q_Num"].ToString() + ". " + questionText;
             myConn.Close();
 
             myConn.Open();
@@ -104,73 +111,74 @@ namespace AITResearch
                 Q_OptionDB.Rows.Add(Q_OptionRow);
                 TbQ_OptionView.DataSource = Q_OptionDB;
                 TbQ_OptionView.DataBind();
-                    
+
                 // depending on the question , the question option show up
-                    if (QuestNum == 1 || QuestNum == 2 || QuestNum == 6 || QuestNum == 9)
-                    {
+                if (QuestNum == 1 || QuestNum == 2 || QuestNum == 6 || QuestNum == 9)
+                {
                     RadioButtonList radioBtnList = new RadioButtonList();
                     radioBtnList.Items.Add(new ListItem(Q_OptionRow["Option_Text"].ToString()));
-                        PlaceHolder1.Controls.Add(radioBtnList);
+                    PlaceHolder1.Controls.Add(radioBtnList);
 
-                    }
-                    
-                    else if (QuestNum == 3 || QuestNum == 10 || QuestNum == 11)
-                    {
-
-                        dropDownList.Items.Add(new ListItem(Q_OptionRow["Option_Text"].ToString()));
-                        PlaceHolder1.Controls.Add(dropDownList);
-                    }
-                else if (QuestNum == 4)
-                {
-                    TextBox txtBoxPostCode = new TextBox();
-                    PlaceHolder1.Controls.Add(txtBoxPostCode);
-                    txtBoxPostCode.Text = String.Empty;
                 }
+
+                else if (QuestNum == 3 || QuestNum == 10 || QuestNum == 11)
+                {
+
+                    dropDownList.Items.Add(new ListItem(Q_OptionRow["Option_Text"].ToString()));
+                    PlaceHolder1.Controls.Add(dropDownList);
+                }
+                // else if (QuestNum == 4)
+                // {
+                //     TextBox txtBoxPostCode = new TextBox();
+                //     PlaceHolder1.Controls.Add(txtBoxPostCode);
+                //     txtBoxPostCode.Text = String.Empty;
+                // }
                 else if (QuestNum == 5)
-                    {
-                        
-                        PlaceHolder1.Controls.Add(txtBoxEmail);
-                        txtBoxEmail.Text = String.Empty;
-                    }
-                    else if (QuestNum == 7 || QuestNum == 8 || QuestNum == 12)
-                    {
+                {
+
+                    PlaceHolder1.Controls.Add(txtBoxEmail);
+                    txtBoxEmail.Text = String.Empty;
+                }
+                else if (QuestNum == 7 || QuestNum == 8 || QuestNum == 12)
+                {
                     CheckBoxList checkBoxList = new CheckBoxList();
                     checkBoxList.Items.Add(new ListItem(Q_OptionRow["Option_Text"].ToString()));
-                    
-                        PlaceHolder1.Controls.Add(checkBoxList);
-                       
-                    }
-              
+
+                    PlaceHolder1.Controls.Add(checkBoxList);
+
+                }
+
 
 
             }
 
-                myConn.Close();
+            myConn.Close();
             // Post back error handle
-            if (!IsPostBack)
-                LabQuestion.Text = AppSession.getQuestionNumber() + ". " + questionText;
+            //if (!IsPostBack)
+            //LabQuestion.Text = AppSession.getQuestionNumber() + ". " + questionText;
 
         }
 
         protected void BtnNext_Click(object sender, EventArgs e)
         {
             // The session holding the question number
-           
-                AppSession.setQuestionNumber(AppSession.getQuestionNumber() + 1);
-                LabQuestion.Text = AppSession.getQuestionNumber() + ". " + questionText;
-           
-            
+
+            // AppSession.setQuestionNumber(AppSession.getQuestionNumber() + 1);
+            //LabQuestion.Text = AppSession.getQuestionNumber() + ". " + questionText;
+            Session["Q_Num"] = Convert.ToInt32(Session["Q_Num"]) + 1;
+            Response.Redirect("Questions.aspx");
+
         }
 
         protected void BtnBack_Click(object sender, EventArgs e)
         {
-            
-                if (AppSession.getQuestionNumber() > 1)
+
+            if (AppSession.getQuestionNumber() > 1)
             {
                 AppSession.setQuestionNumber(AppSession.getQuestionNumber() - 1);
                 LabQuestion.Text = AppSession.getQuestionNumber() + ". " + questionText;
             }
-            
+
         }
     }
 }
