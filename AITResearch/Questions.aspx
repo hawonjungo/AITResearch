@@ -21,9 +21,9 @@
             <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
             <br />
             <br />
-            <br />
-            <asp:Button ID="BtnNext" runat="server" OnClick="BtnNext_Click" Text="Next"/>            
+            <br />                       
             <asp:Button ID="BtnBack" runat="server" OnClick="BtnBack_Click" Text="Back" />
+            <asp:Button ID="BtnNext" runat="server" OnClick="BtnNext_Click" Text="Next"/> 
             <br />
             <br />
             <br />
