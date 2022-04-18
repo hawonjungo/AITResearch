@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" EnableEventValidation= "false"  CodeBehind="Questions.aspx.cs" Inherits="AITResearch.Questions" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true"   CodeBehind="Questions.aspx.cs" Inherits="AITResearch.Questions" %>
 
 <!DOCTYPE html>
 
@@ -22,8 +22,7 @@
             <br />
             <br />
             <br />
-            <asp:Button ID="BtnNext" runat="server" OnClick="BtnNext_Click" Text="Next"/>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Button ID="BtnNext" runat="server" OnClick="BtnNext_Click" Text="Next"/>            
             <asp:Button ID="BtnBack" runat="server" OnClick="BtnBack_Click" Text="Back" />
             <br />
             <br />

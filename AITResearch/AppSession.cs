@@ -12,7 +12,10 @@ namespace AITResearch
         public static int getQuestionNumber()
         {
             if (HttpContext.Current.Session["QuestionNumber"] == null)
+            {
                 HttpContext.Current.Session["QuestionNumber"] = 1;
+            }
+                
             return (int)HttpContext.Current.Session["QuestionNumber"];
         }
 

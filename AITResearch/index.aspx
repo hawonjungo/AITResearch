@@ -2,10 +2,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:Label ID="LbEmail" runat="server" Text="Please enter your Email:"></asp:Label>
-    <br />
-    <asp:TextBox ID="TxtBoxEmail" runat="server"></asp:TextBox>
-    <asp:RequiredFieldValidator ID="RequiredFieldEmail" runat="server" ErrorMessage="Invalid email" ControlToValidate="TxtBoxEmail" ></asp:RequiredFieldValidator>
     <br />
     <br />
     <asp:Label ID="LabAskRegister" runat="server" Text="Would like to register as a member of this program?"></asp:Label>
