@@ -20,21 +20,22 @@ namespace AITResearch
 
         protected void BtnStart_Click(object sender, EventArgs e)
         {
-            // get Respondent Email
-            //Session["RespondentEmail"] = TxtBoxEmail.Text;
+            
 
             // Yes No Direction from Radiobutton
-            if (Radio1Yes.Checked)
+            if (Radio2No.Checked)
             {
                 using (SqlConnection conn = Utils.GetConnection())
                 {
-                    String query = "INSERT INTO R_Register (First_Nam, Last_Name, Phone_Number, DoB) VALUES (@First_Nam, @Last_Name, @Phone_Number, @DoB)";
+                    String query = "INSERT INTO R_Session (Register) VALUES (@Register) select SCOPE_IDENTITY()";
+
 
                     conn.Open();
                     using (SqlCommand command = new SqlCommand(query, conn))
                     {
-                        command.Parameters.AddWithValue("@register", 0);
+                        command.Parameters.AddWithValue("@Register", "Anonymous");
 
+                        // error with ID ( same number - not update)
                         String id = command.ExecuteScalar().ToString();
 
                         Session["Respondent_id"] = id;
@@ -42,11 +43,11 @@ namespace AITResearch
 
                     conn.Close();
                 }
-                Response.Redirect("Register.aspx");
+                Response.Redirect("Questions.aspx");
             }
             else
             {
-                Response.Redirect("Questions.aspx");
+                Response.Redirect("Register.aspx");
             }
         }
     }
