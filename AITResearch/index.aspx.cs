@@ -50,5 +50,10 @@ namespace AITResearch
                 Response.Redirect("Register.aspx");
             }
         }
+
+        protected void btnStaff_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Staff/Login.aspx");
+        }
     }
 }

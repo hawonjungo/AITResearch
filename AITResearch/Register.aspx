@@ -2,8 +2,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1 class="title">User registration</h1>
-    <div>
+    <h3 class="title">User registration</h3>
+    <div class="container">
         <div>
             <div class="field_title">First name:</div> <asp:TextBox class="field" ID="TextBoxFirstName" runat="server" />
         <asp:RequiredFieldValidator ID="First_Name__validator" runat="server" ErrorMessage="Please fill the field." ControlToValidate="TextBoxFirstName"></asp:RequiredFieldValidator>
@@ -21,13 +21,17 @@
             <asp:TextBox class="field" ID="TextBoxDOB" placeholder="dd/mm/yyyy" runat="server"></asp:TextBox>
         <asp:RequiredFieldValidator ID="DOB_validator" runat="server" ErrorMessage="Please fill the field." ControlToValidate="TextBoxDOB"></asp:RequiredFieldValidator>
         
+            <br />
+        
         </div>
         
     </div>
     <div>
         
+        <asp:Label ID="regResult" runat="server"></asp:Label>
+        
         <br />
-        <asp:Button ID="BtnRegister" runat="server" Text="Register" />
+        <asp:Button  CssClass="button" ID="BtnRegister" runat="server" Text="Register" OnClick="BtnRegister_Click" />
         <br />
         
     </div>

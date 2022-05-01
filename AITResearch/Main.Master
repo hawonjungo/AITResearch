@@ -4,31 +4,39 @@
 
 <html>
 <head runat="server">
-    <title></title>
+   
+    <title>AIT Research</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+    <link href="StyleSheet.css" rel="stylesheet" />
+
+         
 </head>
 <body>
+        <form id="form1" runat="server" style="height: 19px; z-index: 1">
     <!-- Header -->
-    <div>
-        <asp:Label ID="LabWelcome" runat="server" Text="AIT Research"></asp:Label>
-    </div>
+    <div class="header">
+       <h1> <asp:Label ID="LabWelcome" runat="server" Text="AIT Research" ></asp:Label></h1>
+         </div>
 
     <!-- Body -->
 
-    <form id="form1" runat="server">
-        <div>
+
+        <div class="container">          
+            <br />
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>
 
      <!-- Footer -->
-        <div id="footer">
+        <footer>
+        <div  class="footer">
              <br />
              <br />
-        Copy right Jun @2020.
+        <h3>Copy right Jun @2022.</h3>
         </div>
-       
+       </footer>
     </form>
+        
 </body>
 </html>

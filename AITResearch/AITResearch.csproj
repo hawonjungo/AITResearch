@@ -70,7 +70,9 @@
     <Content Include="index.aspx" />
     <Content Include="Questions.aspx" />
     <Content Include="Register.aspx" />
-    <Content Include="SearchPage\Search.aspx" />
+    <Content Include="Staff\Search.aspx" />
+    <Content Include="Staff\Login.aspx" />
+    <Content Include="StyleSheet.css" />
     <Content Include="Thanks.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -107,12 +109,19 @@
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SearchPage\Search.aspx.cs">
+    <Compile Include="Staff\Search.aspx.cs">
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SearchPage\Search.aspx.designer.cs">
+    <Compile Include="Staff\Search.aspx.designer.cs">
       <DependentUpon>Search.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Staff\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Staff\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Thanks.aspx.cs">
       <DependentUpon>Thanks.aspx</DependentUpon>
@@ -133,6 +142,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

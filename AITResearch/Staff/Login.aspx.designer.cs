@@ -7,74 +7,65 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AITResearch
+namespace AITResearch.Staff
 {
 
 
-    public partial class Questions
+    public partial class Login
     {
 
         /// <summary>
-        /// form1 control.
+        /// user control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Label user;
 
         /// <summary>
-        /// LabQuestion control.
+        /// txtBoxUerName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabQuestion;
+        protected global::System.Web.UI.WebControls.TextBox txtBoxUerName;
 
         /// <summary>
-        /// PlaceHolder1 control.
+        /// password control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder1;
+        protected global::System.Web.UI.WebControls.Label password;
 
         /// <summary>
-        /// BtnBack control.
+        /// txtBoxPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnBack;
+        protected global::System.Web.UI.WebControls.TextBox txtBoxPassword;
 
         /// <summary>
-        /// BtnNext control.
+        /// LoginStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnNext;
+        protected global::System.Web.UI.WebControls.Label LoginStatus;
 
         /// <summary>
-        /// dbTableView control.
+        /// btnLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dbTableView;
-
-        /// <summary>
-        /// TbQ_OptionView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView TbQ_OptionView;
+        protected global::System.Web.UI.WebControls.Button btnLogin;
     }
 }

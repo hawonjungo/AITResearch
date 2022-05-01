@@ -8,15 +8,19 @@ using System.Data;
 using System.Data.SqlClient;
 using AITResearch.DataTransferObject;
 using System.Net;
+using System.Diagnostics;
+
+
 
 namespace AITResearch
 {
+
     public partial class Questions : System.Web.UI.Page
     {
         // declair data holder
         private int QuestNum = 0;
         private string questionText;
-         int nextQuestion = 1;
+        private int nextQuestion = 1;
 
         private RadioButtonList radioBtnList = new RadioButtonList();
         private DropDownList dropDownList = new DropDownList();
@@ -30,7 +34,9 @@ namespace AITResearch
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
+          //  Debug.Write("Question number_________________________ :" + nextQuestion);
+           
             if (Session["R_ID"] == null)
             {
                 TestSessionId();
@@ -77,7 +83,9 @@ namespace AITResearch
                     questionDB.Rows.Add(myRow);
                     if (myRow["Next_Q_ID"].ToString() != "")
                     {
+                       
                         nextQuestion = Convert.ToInt32(myRow["Next_Q_ID"]);
+                        
                     }
 
                 }
@@ -94,7 +102,8 @@ namespace AITResearch
                 }
 
                 dbTableView.DataSource = questionDB;
-                dbTableView.DataBind();
+                //hide table
+                //dbTableView.DataBind();
 
             }
             LabQuestion.Text = Session["Q_Num"].ToString() + ". " + questionText;
@@ -125,7 +134,8 @@ namespace AITResearch
 
                 Q_OptionDB.Rows.Add(Q_OptionRow);
                 TbQ_OptionView.DataSource = Q_OptionDB;
-                TbQ_OptionView.DataBind();
+                //hide table
+                //TbQ_OptionView.DataBind();
 
                 // depending on the question , the question option show up
                 if (QuestNum == 1 || QuestNum == 2 || QuestNum == 6 || QuestNum == 9)
@@ -137,8 +147,10 @@ namespace AITResearch
                     if(Q_OptionRow["Next_Q_ID"].ToString() != "")
                     {
                         
-                       // nextQuestion = Convert.ToInt32(Q_OptionRow["Next_Q_ID"]);
-                    }
+                        nextQuestion = Convert.ToInt32(Q_OptionRow["Next_Q_ID"]);
+                    } 
+                    
+
                     
                 }
 
@@ -149,7 +161,7 @@ namespace AITResearch
                     PlaceHolder1.Controls.Add(dropDownList);
                     if (Q_OptionRow["Next_Q_ID"].ToString() != "")
                     {
-                      //  nextQuestion = Convert.ToInt32(Q_OptionRow["Next_Q_ID"]);
+                       // nextQuestion = Convert.ToInt32(Q_OptionRow["Next_Q_ID"]);
                     }
                 }
                 
@@ -160,7 +172,7 @@ namespace AITResearch
                     txtBoxEmail.Text = String.Empty;
                     if (Q_OptionRow["Next_Q_ID"].ToString() != "")
                     {
-                      //  nextQuestion = Convert.ToInt32(Q_OptionRow["Next_Q_ID"]);
+                      // nextQuestion = Convert.ToInt32(Q_OptionRow["Next_Q_ID"]);
                     }
                 }
                 else if (QuestNum == 7 || QuestNum == 8 || QuestNum == 12)
@@ -170,7 +182,7 @@ namespace AITResearch
                     PlaceHolder1.Controls.Add(checkBoxList);
                     if (Q_OptionRow["Next_Q_ID"].ToString() != "")
                     {
-                       // nextQuestion = Convert.ToInt32(Q_OptionRow["Next_Q_ID"]);
+                      // nextQuestion = Convert.ToInt32(Q_OptionRow["Next_Q_ID"]);
                     }
                 }
             }
@@ -181,40 +193,40 @@ namespace AITResearch
         }
 
         protected void BtnNext_Click(object sender, EventArgs e)
-        {
-            // The session holding the question number
-            // AppSession.setQuestionNumber(AppSession.getQuestionNumber() + 1);
-            //LabQuestion.Text = AppSession.getQuestionNumber() + ". " + questionText;
+        {          
+            Debug.Write("Question number----------------- :" + nextQuestion);
             Session["Q_Num"] = Convert.ToInt32(Session["Q_Num"]) + 1;
-
-            Session["Q_Num"] = nextQuestion;
-            /*if (nextQuestion.Length != 0) { }*/
+                  
             if (Convert.ToInt32(Session["Q_Num"]) < 12)
             {
                            
-
                 if (QuestNum == 1 || QuestNum == 2 || QuestNum == 6 || QuestNum == 9)
                 {
+                    
                     foreach (ListItem item in radioBtnList.Items)
                     {
+
                         if (item.Selected == true)
                         {
-                           
                             SaveData2Database(item.Value);
-
                             
-                        }
-                        if (QuestNum == 6 && item.Value == "No")
-                        {
-                            nextQuestion = Convert.ToInt32(9);
-                        }
-                        else
-                        {
-                            nextQuestion = 7;
-                        }
-                        if (QuestNum == 9 && item.Value == "No")
-                        {
-                            nextQuestion = 12;
+                            if (QuestNum == 6 && item.Value == "No")
+                            {
+                                Session["Q_Num"] = 9;                              
+                            }
+                            else if (QuestNum == 6 && item.Value =="Yes")
+                            {
+                                Session["Q_Num"] = 7;
+                            }
+                            else if (QuestNum == 9 && item.Value == "No")
+                            {
+                                Session["Q_Num"] = 12;
+                            }
+                            else if (QuestNum == 9 && item.Value == "Yes")
+                            {
+                                Session["Q_Num"] = 10;
+                            }
+                          
                         }
                     }
                 }
@@ -225,8 +237,20 @@ namespace AITResearch
                         if (item.Selected == true)
                         {
                             SaveData2Database(item.Value);
+                             if (QuestNum == 10 && item.Value == "Travel")
+                            {
+                                Session["Q_Num"] = 12;
+                            }
+                            else if (QuestNum == 10 && item.Value != "Travel" && item.Value != "Sport")
+                            {
+                                Response.Redirect("Thanks.aspx");
+                            }
                         }
                     }
+                }
+                else if (QuestNum == 4)
+                {
+                    SaveData2Database(txtBoxPostCode.Text);
                 }
                 else if (QuestNum == 5)
                 {
@@ -242,20 +266,26 @@ namespace AITResearch
                         }
                     }
                 }
+               // Debug.Write("Question number~~~~~~~ :" + nextQuestion);
+               // ViewState["NQ"] = nextQuestion;
+
+                // It's too hard to handle the postback and the page load. Need more time to find a way to save the Variable value before page load 
+
                 Response.Redirect("Questions.aspx");
+                //Debug.Write("Question number@@@@@@@@@@ :" + nextQuestion);
             }
             else
             {
                 Response.Redirect("Thanks.aspx");
             }
-
-            
+          
+           
         }
 
         protected void BtnBack_Click(object sender, EventArgs e)
         {
 
-            if (Convert.ToInt32(Session["Q_Num"]) > 1)
+            if (Convert.ToInt32(Session["Q_Num"]) >= 1)
             {
                 Session["Q_Num"] = Convert.ToInt32(Session["Q_Num"]) - 1;
                 Response.Redirect("Questions.aspx");
@@ -307,6 +337,7 @@ namespace AITResearch
 
             using (SqlConnection conn = Utils.GetConnection())
             {
+
                 String query = "INSERT INTO R_Answer (R_ID, Q_ID, Answer_Text) VALUES (@R_ID, @Q_ID, @Answer_Text)";
 
                 conn.Open();
@@ -317,9 +348,9 @@ namespace AITResearch
                     command.Parameters.AddWithValue("@Q_ID", Session["Q_Num"]);
                     command.Parameters.AddWithValue("@Answer_Text", answer);
 
-                    /*int result = command.ExecuteNonQuery();
+                   int result = command.ExecuteNonQuery();
 
-                    // Error/Success message
+                    // Error and Success message
                     if (result < 0)
                     {
                         resultStatus.ResultStatusCode = 3;
@@ -330,7 +361,7 @@ namespace AITResearch
 
                         resultStatus.ResultStatusCode = 1;
                         resultStatus.Message = "Registration succeed";
-                    }*/
+                    }
                 }
             }
 
